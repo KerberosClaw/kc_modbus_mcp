@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# OpenClaw skill wrapper for kc_mcp_modbus
+# Usage: modbus <command> [args...]
+
+set -euo pipefail
+
+MCP_URL="${MCP_URL:-http://localhost:8765}"
+
+case "${1:-}" in
+  list)
+    curl -s "$MCP_URL/mcp" -X POST \
+      -H "Content-Type: application/json" \
+      -d '{"method":"tools/call","params":{"name":"list_devices","arguments":{}}}'
+    ;;
+  status)
+    curl -s "$MCP_URL/mcp" -X POST \
+      -H "Content-Type: application/json" \
+      -d "{\"method\":\"tools/call\",\"params\":{\"name\":\"device_status\",\"arguments\":{\"device\":\"$2\"}}}"
+    ;;
+  read)
+    curl -s "$MCP_URL/mcp" -X POST \
+      -H "Content-Type: application/json" \
+      -d "{\"method\":\"tools/call\",\"params\":{\"name\":\"read_device\",\"arguments\":{\"device\":\"$2\",\"register\":\"$3\"}}}"
+    ;;
+  write)
+    curl -s "$MCP_URL/mcp" -X POST \
+      -H "Content-Type: application/json" \
+      -d "{\"method\":\"tools/call\",\"params\":{\"name\":\"write_device\",\"arguments\":{\"device\":\"$2\",\"register\":\"$3\",\"value\":$4}}}"
+    ;;
+  registers)
+    curl -s "$MCP_URL/mcp" -X POST \
+      -H "Content-Type: application/json" \
+      -d "{\"method\":\"tools/call\",\"params\":{\"name\":\"list_registers\",\"arguments\":{\"device\":\"$2\"}}}"
+    ;;
+  *)
+    echo "Usage: modbus <list|status|read|write|registers> [args...]"
+    exit 1
+    ;;
+esac

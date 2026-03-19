@@ -1,0 +1,23 @@
+services:
+  simulator:
+    build: .
+    command: python simulator.py
+    ports:
+      - "5020:5020"
+    environment:
+      - SIMULATOR_HOST=0.0.0.0
+      - SIMULATOR_PORT=5020
+
+  mcp-server:
+    build: .
+    command: python server.py
+    ports:
+      - "8765:8765"
+    environment:
+      - MODBUS_PROFILE=devices.yaml
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8765
+    depends_on:
+      - simulator
+    volumes:
+      - ./devices.yaml:/app/devices.yaml

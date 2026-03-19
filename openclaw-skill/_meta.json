@@ -1,0 +1,5 @@
+{
+  "name": "modbus",
+  "version": "1.0.0",
+  "description": "Modbus TCP device control via MCP Server"
+}

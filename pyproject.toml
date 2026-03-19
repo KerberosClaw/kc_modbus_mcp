@@ -1,0 +1,26 @@
+[project]
+name = "kc-modbus-mcp"
+version = "1.0.0"
+description = "MCP Server for Modbus TCP — let AI agents read/write PLC registers by name"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=3.1.1",
+    "pymodbus>=3.7.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

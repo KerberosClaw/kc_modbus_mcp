@@ -1,0 +1,59 @@
+# kc_mcp_modbus — 設備描述檔範例
+# 此檔案對應內建模擬器的寄存器配置，可直接用於測試
+
+devices:
+  factory_sensor:
+    host: localhost
+    port: 5020
+    slave_id: 1
+    byte_order: big               # big | little | mixed
+    registers:
+      # Holding Registers (FC 3)
+      temperature:
+        address: 0
+        function_code: 3
+        data_type: float32
+        scale: 1.0
+        unit: "°C"
+        access: read
+        description: "環境溫度感測器"
+      humidity:
+        address: 2
+        function_code: 3
+        data_type: float32
+        scale: 1.0
+        unit: "%RH"
+        access: read
+        description: "環境濕度感測器"
+      motor_speed:
+        address: 4
+        function_code: 3
+        data_type: uint16
+        scale: 1.0
+        unit: "RPM"
+        access: read_write
+        description: "馬達轉速設定值"
+
+      # Input Registers (FC 4)
+      pressure:
+        address: 0
+        function_code: 4
+        data_type: uint16
+        scale: 1.0
+        unit: "kPa"
+        access: read
+        description: "管路壓力"
+
+      # Coils (FC 1)
+      pump_on:
+        address: 0
+        function_code: 1
+        data_type: bool
+        access: read_write
+        description: "幫浦開關"
+      valve_open:
+        address: 1
+        function_code: 1
+        data_type: bool
+        access: read_write
+        description: "閥門開關"
