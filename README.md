@@ -52,7 +52,7 @@ User (CLI / Chat / OpenClaw)
 
 ## Demo
 
-![AI agent reading Modbus device registers](docs/images/demo-snapshot.png)
+<img src="docs/images/demo-snapshot.png" width="600" alt="AI agent reading Modbus device registers">
 
 ---
 
